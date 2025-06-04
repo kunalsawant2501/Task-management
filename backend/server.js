@@ -22,6 +22,10 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => {
+  res.json({ message: "all fine" });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/task", taskRoutes);

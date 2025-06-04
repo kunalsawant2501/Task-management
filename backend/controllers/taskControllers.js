@@ -5,7 +5,7 @@ const createTask = async (req, res) => {
   try {
     const { title, description, priority, dueDate, reminderAt, assignedTo } =
       req.body;
-
+    console.log(req.body)
     if (!Array.isArray(assignedTo)) {
       return res
         .status(400)

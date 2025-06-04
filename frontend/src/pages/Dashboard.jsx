@@ -3,6 +3,8 @@ import Header from "../components/Header";
 import TaskStatusCards from "../components/TaskStatusCard";
 import RecentlyAddedTasks from "../components/RecentlyAddedTask";
 import CreateTaskModal from "../components/CreateTaskModal";
+import { toastSuccess, toastError } from "../../helper"; 
+import { ToastContainer } from "react-toastify";
 
 const Dashboard = () => {
   const userName = localStorage.getItem("loginUser");
@@ -14,7 +16,7 @@ const Dashboard = () => {
   const [inProgressTask, setInProgressTask] = useState(0)
   const [totalTask, setTotalTask] = useState(0)
   const [users, setUsers] = useState([]);
-  
+
 
   const getUsers = async () => {
     try {
@@ -79,32 +81,34 @@ const Dashboard = () => {
         },
         body: JSON.stringify({ title, description, status, priority, dueDate, reminderAt, assignedTo }),
       });
+      toastSuccess("Task created successfully!");
 
-      const data = await res.json();
       if (!res.ok) {
         toastError(data.message || "Create task failed");
         return;
       }
-      toastSuccess("Task created successfully!");
+      const data = await res.json();
     } catch (error) {
       toastError("Something went wrong. Please try again later.");
       console.error("Signup Error:", error);
     }
   }
-   
+
   useEffect(() => {
     getTasks();
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     getUsers();
-  },[])
+  }, [])
   return (
     <div className="min-h-screen w-full bg-[#1E232A]">
       <Header username={userName} />
       <TaskStatusCards totalTask={totalTask} completedTask={completedTask} pendingTask={pendingTask} inProgressTask={inProgressTask} />
-      <RecentlyAddedTasks tasks={tasks}/>
-      {role !== "user" && <CreateTaskModal users={users} createTask={createTask}/>}
+      <RecentlyAddedTasks tasks={tasks} />
+      {role !== "user" && <CreateTaskModal users={users} createTask={createTask} />}
+      <ToastContainer autoClose={2000} hideProgressBar={true} />
+      
     </div>
   );
 };

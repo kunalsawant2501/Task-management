@@ -89,7 +89,7 @@ const RecentlyAddedTasks = ({ tasks }) => {
         {tasks.map((task) => (
           <div
             key={task._id}
-            className={`min-w-[300px] rounded-lg shadow-md p-4 text-white bg-green-400`}
+            className={`min-w-[300px] rounded-lg shadow-md p-4 text-white ${task.status === "completed" ? "bg-green-400" : task.status === "pending" ? "bg-red-400" : "bg-blue-400"}`}
           >
             <div className="flex justify-between items-center text-sm mb-2">
               <span className="bg-black/30 px-2 py-1 rounded">

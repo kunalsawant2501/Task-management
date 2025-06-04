@@ -1,10 +1,10 @@
 import React from "react";
 
-const Header = ({ username = "username", onLogout }) => {
+const Header = ({ username = "username", role = "role", onLogout }) => {
   return (
     <header className="bg-[#2E333A] px-6 py-4 flex justify-between items-center shadow-md">
       <div className="text-[#F2F2F2] text-lg font-medium">
-        Hello <span className="font-bold uppercase"> {username} 👋</span>
+        Hello <span className="font-bold uppercase">{username} 👋</span>({role})
       </div>
 
       <button

@@ -3,9 +3,16 @@ const Task = require("../models/Task");
 
 const createTask = async (req, res) => {
   try {
-    const { title, description, priority, dueDate, status, reminderAt, assignedTo } =
-      req.body;
-    console.log(req.body)
+    const {
+      title,
+      description,
+      priority,
+      dueDate,
+      status,
+      reminderAt,
+      assignedTo,
+    } = req.body;
+    console.log(req.body);
     if (!Array.isArray(assignedTo)) {
       return res
         .status(400)
@@ -71,7 +78,6 @@ const updateTask = async (req, res) => {
 const getTask = async (req, res) => {
   try {
     const { role } = req.query;
-    console.log(role, "role");
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
@@ -81,33 +87,42 @@ const getTasks = async (req, res) => {
   try {
     const role = req.user.role;
     const userId = req.user._id;
-    let pending_tasks=0
-    let inprogress_tasks=0
-    let completed_tasks=0
+    let pending_tasks = 0;
+    let inprogress_tasks = 0;
+    let completed_tasks = 0;
 
     let tasks;
 
-    if (role === 'admin') {
-      tasks = await Task.find().populate({path:'assignedTo', select:' -password -role'}).populate({path: 'createdBy', select:'-password -role'});
-    } else if (role === 'manager') {
-      tasks = await Task.find({ $or:[{createdBy:userId}, {assignedTo:userId}]}).populate({path:"assignedTo", select:'-password -role'}).populate({path:"createdBy", select:'-password -role'});
+    if (role === "admin") {
+      tasks = await Task.find()
+        .populate({ path: "assignedTo", select: " -password -role" })
+        .populate({ path: "createdBy", select: "-password -role" });
+    } else if (role === "manager") {
+      tasks = await Task.find({
+        $or: [{ createdBy: userId }, { assignedTo: userId }],
+      })
+        .populate({ path: "assignedTo", select: "-password -role" })
+        .populate({ path: "createdBy", select: "-password -role" });
     } else {
-      tasks = await Task.find({ assignedTo: userId }).populate({path:'createdBy', select:'-password -role'});
+      tasks = await Task.find({ assignedTo: userId }).populate({
+        path: "createdBy",
+        select: "-password -role",
+      });
     }
 
-    for(const task of tasks){
-      if(task.status === "pending"){
-        pending_tasks += 1
-      }else if(task.status === "in_progress"){
-        inprogress_tasks += 1
-      }else{
-        completed_tasks += 1
+    for (const task of tasks) {
+      if (task.status === "pending") {
+        pending_tasks += 1;
+      } else if (task.status === "in_progress") {
+        inprogress_tasks += 1;
+      } else {
+        completed_tasks += 1;
       }
     }
 
-    res.json({tasks, completed_tasks, inprogress_tasks, pending_tasks});
+    res.json({ tasks, completed_tasks, inprogress_tasks, pending_tasks });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-module.exports = { createTask, deleteTask, updateTask, getTask, getTasks };
+module.exports = { createTask, deleteTask, updateTask, getTasks };

@@ -14,7 +14,7 @@ const TaskStatusCards = ({ totalTask, completedTask, pendingTask, inProgressTask
       count: inProgressTask || 0,
       label: "In Progress Task",
       bg: "bg-yellow-400",
-      text: "text-black",
+      text: "text-white",
     },
     {
       count: pendingTask || 0,

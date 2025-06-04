@@ -7,6 +7,7 @@ import CreateTaskModal from "../components/CreateTaskModal";
 const Dashboard = () => {
   const userName = localStorage.getItem("loginUser");
   const token = localStorage.getItem("token")
+  const role = localStorage.getItem("role")
   const [tasks, setTasks] = useState([])
   const [pendingTask, setPendingTask] = useState(0)
   const [completedTask, setCompletedTask] = useState(0)
@@ -103,7 +104,7 @@ const Dashboard = () => {
       <Header username={userName} />
       <TaskStatusCards totalTask={totalTask} completedTask={completedTask} pendingTask={pendingTask} inProgressTask={inProgressTask} />
       <RecentlyAddedTasks tasks={tasks}/>
-      <CreateTaskModal users={users} createTask={createTask}/>
+      {role !== "user" && <CreateTaskModal users={users} createTask={createTask}/>}
     </div>
   );
 };

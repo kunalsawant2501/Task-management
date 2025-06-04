@@ -92,7 +92,7 @@ const getTasks = async (req, res) => {
     } else if (role === 'manager') {
       tasks = await Task.find({ createdBy: userId }).populate('assignedTo');
     } else {
-      tasks = await Task.find({ assignedTo: userId });
+      tasks = await Task.find({ assignedTo: userId }).populate({path:'createdBy', select:'-password -role'});
     }
 
     for(const task of tasks){

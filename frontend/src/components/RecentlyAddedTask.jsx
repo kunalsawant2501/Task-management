@@ -76,6 +76,7 @@ const tasks = [
 ];
 
 const RecentlyAddedTasks = ({ tasks }) => {
+  const role = localStorage.getItem("role")
   return (
     <div className="bg-[#1E232A] px-6 py-10">
       <div className="flex justify-between items-center mb-4">
@@ -106,10 +107,10 @@ const RecentlyAddedTasks = ({ tasks }) => {
                 <span className="font-semibold">Created By:</span>{" "}
                 {task.createdBy.name}{" "}{task.createdBy.email}
               </p>
-              <p>
+              {role !== "user" && <p>
                 <span className="font-semibold">Assigned To:</span>{" "}
                 {task.assignedTo.name}{" "}{task.assignedTo.email}
-              </p>
+              </p>}
             </div>
           </div>
         ))}

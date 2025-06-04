@@ -90,7 +90,7 @@ const getTasks = async (req, res) => {
     if (role === 'admin') {
       tasks = await Task.find().populate({path:'assignedTo', select:' -password -role'}).populate({path: 'createdBy', select:'-password -role'});
     } else if (role === 'manager') {
-      tasks = await Task.find({ createdBy: userId }).populate('assignedTo');
+      tasks = await Task.find({ $or:[{createdBy:userId}, {assignedTo:userId}]}).populate({path:"assignedTo", select:'-password -role'}).populate({path:"createdBy", select:'-password -role'});
     } else {
       tasks = await Task.find({ assignedTo: userId }).populate({path:'createdBy', select:'-password -role'});
     }

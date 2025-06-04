@@ -93,7 +93,7 @@ const RecentlyAddedTasks = ({ tasks }) => {
           >
             <div className="flex justify-between items-center text-sm mb-2">
               <span className="bg-black/30 px-2 py-1 rounded">
-                {task.priority}
+                {task.status}
               </span>
               <span>{task.dueDate}</span>
             </div>

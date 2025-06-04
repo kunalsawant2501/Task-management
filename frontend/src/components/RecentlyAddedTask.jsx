@@ -108,7 +108,7 @@ const RecentlyAddedTasks = ({ tasks }) => {
               </p>
               <p>
                 <span className="font-semibold">Assigned To:</span>{" "}
-                {task.assignedTo.name}{" "}{task.createdBy.email}
+                {task.assignedTo.name}{" "}{task.assignedTo.email}
               </p>
             </div>
           </div>

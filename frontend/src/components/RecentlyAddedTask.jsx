@@ -1,84 +1,84 @@
 import React from "react";
 
-const tasks = [
-  {
-    id: 1,
-    priority: "High",
-    category: "Design",
-    title: "Update website",
-    description: "Revamp the homepage design",
-    createdAt: "2024-10-10",
-    dueDate: "2024-10-12",
-    createdBy: "Alice",
-    assignedTo: "Bob",
-    color: "bg-red-400",
-  },
-  {
-    id: 2,
-    priority: "Medium",
-    category: "Meeting",
-    title: "Client meeting",
-    description: "Discuss project requirements",
-    createdAt: "2024-10-08",
-    dueDate: "2024-10-10",
-    createdBy: "Krishna",
-    assignedTo: "Team",
-    color: "bg-blue-400",
-  },
-  {
-    id: 3,
-    priority: "High",
-    category: "Development",
-    title: "Fix bugs",
-    description: "Resolve bugs reported in issue tracker",
-    createdAt: "2024-10-12",
-    dueDate: "2024-10-14",
-    createdBy: "Sasha",
-    assignedTo: "Dev Team",
-    color: "bg-red-400",
-  },
-  {
-    id: 4,
-    priority: "Low",
-    category: "Dev",
-    title: "Nacho",
-    description: "hello guys",
-    createdAt: "2024-10-01",
-    dueDate: "2024-10-15",
-    createdBy: "Krishna",
-    assignedTo: "Support",
-    color: "bg-green-400",
-  },
-  {
-    id: 5,
-    priority: "Low",
-    category: "Dev",
-    title: "Nacho",
-    description: "hello guys",
-    createdAt: "2024-10-01",
-    dueDate: "2024-10-15",
-    createdBy: "Krishna",
-    assignedTo: "Support",
-    color: "bg-green-400",
-  },
-  {
-    id: 6,
-    priority: "Low",
-    category: "Dev",
-    title: "Nacho",
-    description: "hello guys",
-    createdAt: "2024-10-01",
-    dueDate: "2024-10-15",
-    createdBy: "Krishna",
-    assignedTo: "Support",
-    color: "bg-green-400",
-  },
-];
+// const tasks = [
+//   {
+//     id: 1,
+//     priority: "High",
+//     category: "Design",
+//     title: "Update website",
+//     description: "Revamp the homepage design",
+//     createdAt: "2024-10-10",
+//     dueDate: "2024-10-12",
+//     createdBy: "Alice",
+//     assignedTo: "Bob",
+//     color: "bg-red-400",
+//   },
+//   {
+//     id: 2,
+//     priority: "Medium",
+//     category: "Meeting",
+//     title: "Client meeting",
+//     description: "Discuss project requirements",
+//     createdAt: "2024-10-08",
+//     dueDate: "2024-10-10",
+//     createdBy: "Krishna",
+//     assignedTo: "Team",
+//     color: "bg-blue-400",
+//   },
+//   {
+//     id: 3,
+//     priority: "High",
+//     category: "Development",
+//     title: "Fix bugs",
+//     description: "Resolve bugs reported in issue tracker",
+//     createdAt: "2024-10-12",
+//     dueDate: "2024-10-14",
+//     createdBy: "Sasha",
+//     assignedTo: "Dev Team",
+//     color: "bg-red-400",
+//   },
+//   {
+//     id: 4,
+//     priority: "Low",
+//     category: "Dev",
+//     title: "Nacho",
+//     description: "hello guys",
+//     createdAt: "2024-10-01",
+//     dueDate: "2024-10-15",
+//     createdBy: "Krishna",
+//     assignedTo: "Support",
+//     color: "bg-green-400",
+//   },
+//   {
+//     id: 5,
+//     priority: "Low",
+//     category: "Dev",
+//     title: "Nacho",
+//     description: "hello guys",
+//     createdAt: "2024-10-01",
+//     dueDate: "2024-10-15",
+//     createdBy: "Krishna",
+//     assignedTo: "Support",
+//     color: "bg-green-400",
+//   },
+//   {
+//     id: 6,
+//     priority: "Low",
+//     category: "Dev",
+//     title: "Nacho",
+//     description: "hello guys",
+//     createdAt: "2024-10-01",
+//     dueDate: "2024-10-15",
+//     createdBy: "Krishna",
+//     assignedTo: "Support",
+//     color: "bg-green-400",
+//   },
+// ];
 
 const RecentlyAddedTasks = ({ tasks }) => {
-  const role = localStorage.getItem("role")
+  const role = localStorage.getItem("role");
   return (
-    <div className="bg-[#1E232A] px-6 py-10">
+    <div className="bg-[#1E232A] px-6 py-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-white text-xl font-semibold">Recently Added</h2>
         <button className="bg-white text-black font-semibold px-4 py-1 rounded hover:bg-gray-200">
@@ -89,7 +89,13 @@ const RecentlyAddedTasks = ({ tasks }) => {
         {tasks.map((task) => (
           <div
             key={task._id}
-            className={`min-w-[300px] rounded-lg shadow-md p-4 text-white ${task.status === "completed" ? "bg-green-400" : task.status === "pending" ? "bg-red-400" : "bg-blue-400"}`}
+            className={`min-w-[300px] rounded-lg shadow-md p-4 text-white ${
+              task.status === "completed"
+                ? "bg-green-400"
+                : task.status === "pending"
+                ? "bg-red-400"
+                : "bg-blue-400"
+            }`}
           >
             <div className="flex justify-between items-center text-sm mb-2">
               <span className="bg-black/30 px-2 py-1 rounded">
@@ -105,12 +111,14 @@ const RecentlyAddedTasks = ({ tasks }) => {
               </p>
               <p>
                 <span className="font-semibold">Created By:</span>{" "}
-                {task.createdBy.name}{" "}{task.createdBy.email}
+                {task.createdBy.name} {task.createdBy.email}
               </p>
-              {role !== "user" && <p>
-                <span className="font-semibold">Assigned To:</span>{" "}
-                {task.assignedTo.name}{" "}{task.assignedTo.email}
-              </p>}
+              {role !== "user" && (
+                <p>
+                  <span className="font-semibold">Assigned To:</span>{" "}
+                  {task.assignedTo.name} {task.assignedTo.email}
+                </p>
+              )}
             </div>
           </div>
         ))}

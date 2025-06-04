@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const CreateTaskModal = ({ users, createTask }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +11,6 @@ const CreateTaskModal = ({ users, createTask }) => {
     reminderAt: "",
     assignedTo: [],
   });
-  const token = localStorage.getItem("token")
 
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -19,7 +18,7 @@ const CreateTaskModal = ({ users, createTask }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    createTask(formData)
+    createTask(formData);
     setIsOpen(false);
     setFormData({
       title: "",
@@ -91,7 +90,7 @@ const CreateTaskModal = ({ users, createTask }) => {
 
               <div className="grid grid-cols-2 gap-4">
                 <input
-                  type="datetime-local"
+                  type="date"
                   name="dueDate"
                   value={formData.dueDate}
                   onChange={onChange}
@@ -109,7 +108,9 @@ const CreateTaskModal = ({ users, createTask }) => {
               <select
                 name="assignedTo"
                 value={formData.assignedTo}
-                onChange={(e) => setFormData({ ...formData, assignedTo: [e.target.value] })}
+                onChange={(e) =>
+                  setFormData({ ...formData, assignedTo: [e.target.value] })
+                }
                 className="p-2 rounded bg-[#1E232A] w-full"
               >
                 <option value="">Select User</option>

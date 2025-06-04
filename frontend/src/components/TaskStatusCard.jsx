@@ -1,24 +1,23 @@
 import React from "react";
 
-const TaskStatusCards = ({ tasks }) => {
-  const { total, completed, inProgress, pending } = tasks;
+const TaskStatusCards = ({ totalTask, completedTask, pendingTask, inProgressTask}) => {
 
   const statusData = [
-    { count: total, label: "Task", bg: "bg-blue-500", text: "text-white" },
+    { count: totalTask || 0, label: "Task", bg: "bg-blue-500", text: "text-white" },
     {
-      count: completed,
+      count: completedTask || 0,
       label: "Completed Task",
       bg: "bg-green-500",
       text: "text-white",
     },
     {
-      count: inProgress,
+      count: inProgressTask || 0,
       label: "In Progress Task",
       bg: "bg-yellow-400",
       text: "text-black",
     },
     {
-      count: pending,
+      count: pendingTask || 0,
       label: "Pending Task",
       bg: "bg-red-400",
       text: "text-white",

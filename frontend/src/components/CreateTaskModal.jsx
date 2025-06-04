@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-const CreateTaskModal = ({ }) => {
+const CreateTaskModal = ({ users, createTask }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -18,70 +17,21 @@ const CreateTaskModal = ({ }) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const getUsers = async () => {
-    try {
-      const res = await fetch("http://localhost:3000/api/user/getUser", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!res.ok) {
-        toastError(data.message || "Create task failed");
-        return;
-      }
-      const data = await res.json();
-      setUsers(data.users)
-    } catch (error) {
-      toastError("Something went wrong. Please try again later.");
-      console.error("Signup Error:", error);
-    }
-  }
-
   const onSubmit = async (e) => {
     e.preventDefault();
-    const { title, description, status, priority, dueDate, reminderAt, assignedTo } = formData
-    if (!title || !description || !dueDate || !reminderAt || !assignedTo) {
-      toastError("Please fill all required fields");
-      return;
-    }
-
-    try {
-      const res = await fetch("http://localhost:3000/api/task/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ title, description, status, priority, dueDate, reminderAt, assignedTo }),
-      });
-
-      const data = await res.json();
-      setIsOpen(false);
-      setFormData({
-        title: "",
-        description: "",
-        status: "pending",
-        priority: "low",
-        dueDate: "",
-        reminderAt: "",
-        assignedTo: "",
-      });
-      if (!res.ok) {
-        toastError(data.message || "Create task failed");
-        return;
-      }
-      toastSuccess("Task created successfully!");
-    } catch (error) {
-      toastError("Something went wrong. Please try again later.");
-      console.error("Signup Error:", error);
-    }
+    createTask(formData)
+    setIsOpen(false);
+    setFormData({
+      title: "",
+      description: "",
+      status: "pending",
+      priority: "low",
+      dueDate: "",
+      reminderAt: "",
+      assignedTo: "",
+    });
   };
 
-  useEffect(() => {
-    getUsers()
-  }, [])
   return (
     <>
       <button

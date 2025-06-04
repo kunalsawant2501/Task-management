@@ -75,7 +75,7 @@ const tasks = [
   },
 ];
 
-const RecentlyAddedTasks = () => {
+const RecentlyAddedTasks = ({ tasks }) => {
   return (
     <div className="bg-[#1E232A] px-6 py-10">
       <div className="flex justify-between items-center mb-4">
@@ -87,12 +87,12 @@ const RecentlyAddedTasks = () => {
       <div className="flex space-x-4 no-scrollbar overflow-x-auto pb-4 ">
         {tasks.map((task) => (
           <div
-            key={task.id}
-            className={`min-w-[300px] rounded-lg shadow-md p-4 text-white ${task.color}`}
+            key={task._id}
+            className={`min-w-[300px] rounded-lg shadow-md p-4 text-white bg-green-400`}
           >
             <div className="flex justify-between items-center text-sm mb-2">
               <span className="bg-black/30 px-2 py-1 rounded">
-                {task.category}
+                {task.priority}
               </span>
               <span>{task.dueDate}</span>
             </div>
@@ -104,11 +104,11 @@ const RecentlyAddedTasks = () => {
               </p>
               <p>
                 <span className="font-semibold">Created By:</span>{" "}
-                {task.createdBy}
+                {task.createdBy.name}{" "}{task.createdBy.email}
               </p>
               <p>
                 <span className="font-semibold">Assigned To:</span>{" "}
-                {task.assignedTo}
+                {task.assignedTo.name}{" "}{task.createdBy.email}
               </p>
             </div>
           </div>
